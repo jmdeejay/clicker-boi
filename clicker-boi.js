@@ -7,6 +7,8 @@
 // @match        https://orteil.dashnet.org/cookieclicker/
 // @icon         https://www.google.com/s2/favicons?domain=dashnet.org
 // @grant        none
+// @updateURL    https://raw.githubusercontent.com/jmdeejay/clicker-boi/master/clicker-boi.js
+// @downloadURL  https://raw.githubusercontent.com/jmdeejay/clicker-boi/master/clicker-boi.js
 // ==/UserScript==
 
 window.addEventListener("load", function() {
