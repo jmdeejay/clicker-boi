@@ -5,7 +5,7 @@ Boost cookie production by at least 850%.
 ## Install
 
 - Install the script in [tampermonkey](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo?hl=fr).
-- Enable clicker boi. "Disabled by default"
+- Enable clicker boi. (Disabled by default)
 
 ## Features
 
