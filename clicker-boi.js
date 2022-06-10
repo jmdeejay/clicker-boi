@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Clicker boi
 // @namespace    http://tampermonkey.net/
-// @version      1.0
+// @version      2.0
 // @description  free cookies
 // @author       jmdeejay
 // @match        https://orteil.dashnet.org/cookieclicker/
@@ -76,12 +76,22 @@ window.addEventListener("load", function() {
         }
     }, 5000);
 
+    function getMaxWrinklerValue() {
+        var maxWrinkler = 10;
+        var prestigeElderSpice = Game.PrestigeUpgrades.find(obj => (obj.id == 364));
+        if (prestigeElderSpice && prestigeElderSpice.bought) {
+            maxWrinkler = 12;
+        }
+        return maxWrinkler;
+    }
+
     // Wrinklers (each 60s)
     var autoPopTwelvethWrinkler = setInterval(function() {
         if (Game.ready && clickerboiEnabled) {
+            var maxWrinklerValue = getMaxWrinklerValue();
             var wrinkCount = 0,
                 wrinkEaten = 0,
-                wrinkIndex = 10; // value for 10 shinies test
+                wrinkIndex = maxWrinklerValue; // value for shinies test
 
             for (var i in Game.wrinklers) {
                 // count number of eating wrinks
@@ -94,8 +104,8 @@ window.addEventListener("load", function() {
                     wrinkIndex = i;
                 }
             }
-            // pop top wrinkler if 10 eating, unless all 12 are shiny
-            if (wrinkCount == 10 && wrinkIndex != 10) {
+            // pop top wrinkler if maximum allowed amount of wrinklers are eating, unless all of them are shiny
+            if (wrinkCount >= maxWrinklerValue && wrinkIndex != maxWrinklerValue) {
                 Game.wrinklers[wrinkIndex].hp = 0;
             }
         }
