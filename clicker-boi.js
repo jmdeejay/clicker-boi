@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Clicker boi
 // @namespace    http://tampermonkey.net/
-// @version      2.0
+// @version      2.1
 // @description  free cookies
 // @author       jmdeejay
 // @match        https://orteil.dashnet.org/cookieclicker/
@@ -14,7 +14,10 @@
 window.addEventListener("load", function() {
     'use strict';
 
+    var pluginName = "Clicker boi";
     var clickerboiEnabled = false;
+    var clickerOn = "🟢 " + pluginName;
+    var clickerOff = "🔴 " + pluginName;
 
     // Add clicker boi button
     setInterval(function() {
@@ -22,17 +25,17 @@ window.addEventListener("load", function() {
             var buttonBar = document.querySelector("#comments .separatorBottom");
             if (buttonBar) {
                 if (!document.getElementById("clicker-boi")) {
-                    console.log("Clicker boi loaded");
+                    console.log(pluginName + " loaded");
                     var enableBtn = document.createElement('div');
                     enableBtn.id="clicker-boi";
                     enableBtn.classList.add("productButton");
                     enableBtn.classList.add("productMinigameButton");
-                    enableBtn.style = "display: block; right: 16px; top: -5px; z-index: 99999;";
-                    enableBtn.innerHTML = "🔴 clicker boi";
+                    enableBtn.style = "display: block; right: 5px; top: -5px; z-index: 100;";
+                    enableBtn.innerHTML = clickerOff;
                     enableBtn.onclick = function(event) {
                         event.stopPropagation();
                         clickerboiEnabled = !clickerboiEnabled;
-                        event.target.innerHTML = (clickerboiEnabled) ? "🟢 clicker boi" : "🔴 clicker boi";
+                        event.target.innerHTML = (clickerboiEnabled) ? clickerOn : clickerOff;
                     }
                     buttonBar.appendChild(enableBtn);
                 }
