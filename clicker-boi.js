@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Clicker boi
 // @namespace    http://tampermonkey.net/
-// @version      2.2
+// @version      2.3
 // @description  free cookies
 // @author       jmdeejay
 // @match        https://orteil.dashnet.org/cookieclicker/
@@ -50,24 +50,13 @@ window.addEventListener("load", function() {
             const autoPopGoldenCookies = setInterval(function() {
                 if (clickerboiEnabled) {
                     Game.shimmers.forEach(function(shimmer) {
-                        if(shimmer.type == "golden" && shimmer.wrath == 0)
+                        if((shimmer.type == "golden" && shimmer.wrath == 0) || shimmer.type == "reindeer")
                         {
                             shimmer.pop()
                         }
                     })
                 }
             }, 500);
-
-            // Reindeers (each 0.1s)
-            const autoPopReindeer = setInterval(function() {
-                if (clickerboiEnabled) {
-                    for (let h in Game.shimmers){
-                        if(Game.shimmers[h].type=="reindeer"){
-                            Game.shimmers[h].pop();
-                        }
-                    }
-                }
-            }, 100);
 
             // Click on fortune news (each 5s)
             const autoPopFortuneNews = setInterval(function() {
@@ -81,7 +70,10 @@ window.addEventListener("load", function() {
                 let maxWrinkler = 10;
                 const prestigeElderSpice = Game.PrestigeUpgrades.find(obj => (obj.id == 364));
                 if (prestigeElderSpice && prestigeElderSpice.bought) {
-                    maxWrinkler = 12;
+                    maxWrinkler += 2;
+                }
+                if (Game.dragonAura == 21 || Game.dragonAura2 == 21) {
+                    maxWrinkler += 2;
                 }
                 return maxWrinkler;
             }
@@ -112,10 +104,13 @@ window.addEventListener("load", function() {
                 }
             }, 60000);
 
-            // Pet dragon (each 10 minutes)
+            // Pet dragon & Transform all sugar lumps into golden lumps (each 10 minutes)
             const autoPetDragon = setInterval(function() {
                 if (clickerboiEnabled) {
                     if (document.getElementById("specialPic")) { Game.ClickSpecialPic(); }
+                    if (Game.lumpCurrentType !== 2) {
+                        Game.lumpCurrentType = 2;
+                    }
                 }
             }, 600000);
 
